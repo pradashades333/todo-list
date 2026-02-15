@@ -1,1 +1,1 @@
-console.log("Todo app is running!");
+import Todo from "./todo";

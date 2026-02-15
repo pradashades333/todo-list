@@ -1,5 +1,5 @@
 class Todo{
-    constructor (title, description, dueDate, priority, done, id){
+    constructor (title, description, dueDate, priority){
         this.title = title
         this.description = description
         this.dueDate = dueDate
@@ -10,7 +10,7 @@ class Todo{
 
 
     changeDone () {
-        this.done != !this.done;
+        this.done != this.done;
     }
 
     setPriority(priority){
@@ -23,7 +23,6 @@ class Todo{
         this.dueDate = dueDate;
         this.priority = priority;
     }
-
 }
 
 export default Todo;

@@ -1,5 +1,7 @@
+import Todo from "./todo";
+
 const displayTodos = (project) => {
-    const main = document.getElementById('main');
+    const main = document.getElementById('todos-container');
     main.innerHTML = '';
 
     project.todos.forEach((todo) => {
@@ -54,4 +56,24 @@ const displayTodos = (project) => {
     });
 };
 
-export { displayTodos };
+const TodoForm = (project) => {
+    const form = document.getElementById('todo-form');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const title = document.getElementById('todo-title').value;
+        const desc = document.getElementById('todo-desc').value;
+        const date = document.getElementById('todo-date').value;
+        const priority = document.getElementById('todo-priority').value;
+
+        const newTodo = new Todo(title, desc, date, priority);
+        project.addTodo(newTodo);
+
+        form.reset();
+        displayTodos(project);
+    });
+};
+
+
+export { displayTodos, TodoForm };

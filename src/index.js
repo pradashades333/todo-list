@@ -1,15 +1,14 @@
 import Todo from "./todo";
 import Project from "./project";
-import { displayTodos } from './dom.js';
+import { displayTodos, TodoForm } from './dom.js';
+
 
 
 const firstProject = new Project('School');
 
-const hw = new Todo("Exam", "Study for new exam", "13-04-2020", "low");
-
+const hw = new Todo("Exam", "Study for new exam", "2024-04-13", "low");
 firstProject.addTodo(hw);
 
-console.log(firstProject);
-console.log(firstProject.getTodos());
-
 displayTodos(firstProject);
+
+TodoForm(firstProject);

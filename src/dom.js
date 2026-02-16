@@ -14,16 +14,20 @@ const displayTodos = (project) => {
         const description = document.createElement('p');
         description.textContent = todo.description;
 
-        const dueDate = document.createElement('span');
-        dueDate.textContent = `due: ${todo.dueDate}`;
-
         todoCard.appendChild(title);
         todoCard.appendChild(description);
-        todoCard.appendChild(dueDate);
 
-        const priority = document.createElement('span');
-        priority.textContent = `priority: ${todo.priority}`;
-        todoCard.appendChild(priority);
+        if (todo.dueDate) {
+            const dueDate = document.createElement('p');
+            dueDate.textContent = `due: ${todo.dueDate}`;
+            todoCard.appendChild(dueDate);
+        }
+
+        if (todo.priority) {
+            const priority = document.createElement('p');
+            priority.textContent = `priority: ${todo.priority}`;
+            todoCard.appendChild(priority);
+        }
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -56,11 +60,17 @@ const displayTodos = (project) => {
     });
 };
 
+let currentFormProject = null;
+
 const TodoForm = (project) => {
+    currentFormProject = project;
     const form = document.getElementById('todo-form');
 
+    if (form.dataset.listenerAdded) return;
+    form.dataset.listenerAdded = 'true';
+
     form.addEventListener('submit', (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const title = document.getElementById('todo-title').value;
         const desc = document.getElementById('todo-desc').value;
@@ -68,12 +78,32 @@ const TodoForm = (project) => {
         const priority = document.getElementById('todo-priority').value;
 
         const newTodo = new Todo(title, desc, date, priority);
-        project.addTodo(newTodo);
+        currentFormProject.addTodo(newTodo);
 
         form.reset();
-        displayTodos(project);
+        displayTodos(currentFormProject);
     });
 };
 
+const displayProjects = (projects, currentProject, onProjectClick) => {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.innerHTML = '';
+    
+    projects.forEach((project) => {
+        const projectBtn = document.createElement('button');
+        projectBtn.textContent = project.name;
+        projectBtn.classList.add('project-btn');
+        
+        if (project === currentProject) {
+            projectBtn.classList.add('active');
+        }
+        
+        projectBtn.addEventListener('click', () => {
+            onProjectClick(project); 
+        });
+        
+        sidebar.appendChild(projectBtn);
+    });
+};
 
-export { displayTodos, TodoForm };
+export { displayTodos, TodoForm, displayProjects};

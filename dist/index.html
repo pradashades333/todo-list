@@ -9,12 +9,21 @@
     <h1>My Todo List</h1>
 
     <div id = "sidebar">
-
     </div>
-
-    <div id = "main"></div>
-
-
+    <div id = "main">
+        <form id="todo-form">
+        <input type="text" id="todo-title" placeholder="title" required>
+        <input type="text" id="todo-desc" placeholder="description">
+        <input type="date" id="todo-date" required>
+        <select id="todo-priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="urgent">Urgent</option>
+        </select>
+        <button type="submit">Add Todo</button>
+    </form>
+    </div>
 
     <script src="main.js"></script>
 </body>

@@ -10,7 +10,7 @@ class Todo{
 
 
     changeDone () {
-        this.done != this.done;
+        this.done = !this.done;
     }
 
     setPriority(priority){

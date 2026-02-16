@@ -1,4 +1,5 @@
 import Todo from "./todo";
+import { projects, saveProjects } from './index.js';
 
 const displayTodos = (project) => {
     const main = document.getElementById('todos-container');
@@ -35,6 +36,7 @@ const displayTodos = (project) => {
         todoCard.appendChild(checkbox);
         checkbox.addEventListener('click', () => {
             todo.changeDone();
+            saveProjects(projects);
             console.log(`${todo.title} is now ${todo.done ? 'complete' : 'incomplete'}`);
 
             if (todo.done) {
@@ -46,13 +48,13 @@ const displayTodos = (project) => {
             }
         });
 
-
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
         todoCard.appendChild(deleteBtn);
 
         deleteBtn.addEventListener('click', () => {
             project.removeTodo(todo.id);
+            saveProjects(projects);
             displayTodos(project);
         });
 
@@ -79,6 +81,7 @@ const TodoForm = (project) => {
 
         const newTodo = new Todo(title, desc, date, priority);
         currentFormProject.addTodo(newTodo);
+        saveProjects(projects);
 
         form.reset();
         displayTodos(currentFormProject);

@@ -1,11 +1,23 @@
 import Todo from "./todo";
 import { projects, saveProjects } from './index.js';
 
+const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
+
 const displayTodos = (project) => {
     const main = document.getElementById('todos-container');
     main.innerHTML = '';
 
-    project.todos.forEach((todo) => {
+    const sorted = [...project.todos].sort((a, b) => {
+        const A = priorityOrder[a.priority] ?? 4;
+        const B = priorityOrder[b.priority] ?? 4;
+        if (A !== B) return A - B;
+
+        const dateA = a.dueDate ? new Date(a.dueDate) : Infinity;
+        const dateB = b.dueDate ? new Date(b.dueDate) : Infinity;
+        return dateA - dateB;
+    });
+
+    sorted.forEach((todo) => {
         const todoCard = document.createElement('div');
         todoCard.classList.add('todo-card');
 
@@ -29,6 +41,20 @@ const displayTodos = (project) => {
             priority.textContent = `priority: ${todo.priority}`;
             todoCard.appendChild(priority);
         }
+
+        const prioritySelect = document.createElement('select');
+        prioritySelect.innerHTML = `
+            <option value="low" ${todo.priority === 'low' ? 'selected' : ''}>Low</option>
+            <option value="medium" ${todo.priority === 'medium' ? 'selected' : ''}>Medium</option>
+            <option value="high" ${todo.priority === 'high' ? 'selected' : ''}>High</option>
+            <option value="urgent" ${todo.priority === 'urgent' ? 'selected' : ''}>Urgent</option>
+        `;
+        prioritySelect.addEventListener('change', (e) => {
+            todo.setPriority(e.target.value);
+            saveProjects(projects);
+            displayTodos(project);
+        });
+        todoCard.appendChild(prioritySelect);
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';

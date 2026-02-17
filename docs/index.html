@@ -4,6 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+
+        h1 {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+
+        #sidebar {
+            width: 200px;
+            background-color: #222;
+            padding: 15px;
+            min-height: calc(100vh - 66px);
+        }
+
+        .project-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .project-btn:hover {
+            background-color: #555;
+        }
+
+        .project-btn.active {
+            background-color: #0077cc;
+        }
+
+        #main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #todo-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        #todo-form input,
+        #todo-form select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        #todo-form button {
+            padding: 8px 16px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #todo-form button:hover {
+            background-color: #005fa3;
+        }
+
+        .todo-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #0077cc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .todo-card h3 {
+            font-size: 16px;
+        }
+
+        .todo-card p {
+            color: #555;
+            font-size: 13px;
+        }
+
+        .todo-card select {
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .todo-card button {
+            padding: 5px 10px;
+            background-color: #cc3333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .todo-card button:hover {
+            background-color: #aa2222;
+        }
+    </style>
 </head>
 <body>
     <h1>My Todo List</h1>
